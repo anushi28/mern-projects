@@ -35,10 +35,23 @@ const Task = mongoose.model("Task", taskSchema);
 // routes
 app.post("/add-task", async (req, res) => {
   try {
-    const task = new Task(req.body);
-    await task.save();
-    res.status(201).json({ message: "Task added successfully" });
+    console.log("REQUEST BODY:", req.body);
+
+    if (!req.body || !req.body.title) {
+      return res.status(400).json({ error: "Task title is required" });
+    }
+
+    const task = new Task({
+      title: req.body.title,
+      completed: false
+    });
+
+    const savedTask = await task.save();
+    console.log("SAVED TASK:", savedTask);
+
+    res.status(201).json(savedTask);
   } catch (err) {
+    console.error("ADD TASK ERROR:", err);
     res.status(500).json({ error: err.message });
   }
 });
