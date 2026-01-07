@@ -1,116 +1,105 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./todo.css"; // keep if you already have styling
 
-function Sign() {
+const API_URL = "https://todo-back-so5v.onrender.com";
+
+function App() {
   const [tasks, setTasks] = useState([]);
-  const [task, setTask] = useState('');
+  const [task, setTask] = useState("");
 
-  const API_URL = "https://todo-back-so5v.onrender.com";
-
+  // fetch tasks on load
   useEffect(() => {
     fetchTasks();
   }, []);
 
   const fetchTasks = async () => {
-    const res = await axios.get(`${API_URL}/get-tasks`);
-    setTasks(res.data);
+    try {
+      const res = await axios.get(`${API_URL}/get-tasks`);
+      setTasks(res.data);
+    } catch (err) {
+      console.error("Error fetching tasks:", err);
+    }
   };
 
   const addTask = async (e) => {
     e.preventDefault();
-    await axios.post(`${API_URL}/add-task`, { title: task });
-    fetchTasks();
-    setTask('');
+
+    if (!task.trim()) {
+      alert("Please enter a task");
+      return;
+    }
+
+    try {
+      await axios.post(`${API_URL}/add-task`, { title: task });
+      setTask("");
+      fetchTasks();
+    } catch (err) {
+      console.error("Error adding task:", err);
+    }
   };
 
   const markCompleted = async (id) => {
-    await axios.put(`${API_URL}/complete-task/${id}`);
-    fetchTasks();
+    try {
+      await axios.put(`${API_URL}/complete-task/${id}`);
+      fetchTasks();
+    } catch (err) {
+      console.error("Error completing task:", err);
+    }
   };
 
   const deleteTask = async (id) => {
-    await axios.delete(`${API_URL}/delete-task/${id}`);
-    fetchTasks();
-  };
-
-  const togglePending = async (id, currentStatus) => {
     try {
-      await axios.put(`${API_URL}/tasks/${id}`, {
-        completed: currentStatus ? false : true,
-      });
+      await axios.delete(`${API_URL}/delete-task/${id}`);
       fetchTasks();
-    } catch (error) {
-      console.error('Error updating task:', error);
+    } catch (err) {
+      console.error("Error deleting task:", err);
     }
   };
 
   return (
-    <div className='todo'>
-      <button
-        onClick={() => window.history.back()}
-        style={{
-          marginBottom: '20px',
-          padding: '8px 16px',
-          fontSize: '16px',
-          cursor: 'pointer'
-        }}
-      >
-        ⬅ Back
-      </button>
-
-      <h1 style={{ textDecoration: "underline", marginLeft: "100px", fontSize: "50px" }}>
-        Add Your Today's Task
-      </h1>
+    <div className="todo">
+      <h1>Add Your Today’s Task</h1>
 
       <form onSubmit={addTask}>
         <input
           type="text"
-          placeholder="Add Task"
+          placeholder="Enter task"
           value={task}
           onChange={(e) => setTask(e.target.value)}
         />
         <button type="submit">Add Task</button>
       </form>
 
-      <br />
+      <h2>Tasks</h2>
 
-      <h2>Tasks:-</h2>
+      {tasks.length === 0 && <p>No tasks yet</p>}
 
-      <div>
-        {tasks.map((task) => (
-          <div key={task._id} style={{ marginBottom: '10px' }}>
-            <span>{task.title}</span>
+      {tasks.map((t) => (
+        <div key={t._id} style={{ marginBottom: "10px" }}>
+          <span
+            style={{
+              textDecoration: t.completed ? "line-through" : "none",
+              marginRight: "10px",
+            }}
+          >
+            {t.title}
+          </span>
 
-            <input
-              type="checkbox"
-              checked={task.completed}
-              onChange={() => markCompleted(task._id)}
-            />
+          <button onClick={() => markCompleted(t._id)}>
+            {t.completed ? "Completed" : "Complete"}
+          </button>
 
-            <button onClick={() => markCompleted(task._id)}>Complete</button>
-
-            <button
-              onClick={() => togglePending(task._id, task.completed)}
-              style={{
-                backgroundColor: task.completed ? 'green' : 'red',
-                color: 'white',
-                border: 'none',
-                padding: '5px 10px',
-                cursor: 'pointer',
-                marginLeft: '5px'
-              }}
-            >
-              {task.completed ? 'Completed' : 'Pending'}
-            </button>
-
-            <button onClick={() => deleteTask(task._id)} style={{ marginLeft: '5px' }}>
-              Delete
-            </button>
-          </div>
-        ))}
-      </div>
+          <button
+            onClick={() => deleteTask(t._id)}
+            style={{ marginLeft: "5px" }}
+          >
+            Delete
+          </button>
+        </div>
+      ))}
     </div>
   );
 }
 
-export default Sign;
+export default App;
