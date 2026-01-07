@@ -1,66 +1,160 @@
-.head{
+/* ===== BASE STYLES ===== */
+.head {
     font-size: 85px;
     margin-left: 10px;
-    
     color: #F4D160;
- 
 }
-.box{
+
+.box {
     width: 760px;
     color: aliceblue;
     margin-left: 20px;
     text-align: justify;
-  
 }
-.btn{
+
+.btn {
     height: 60px;
     width: 150px;
-    border-radius: 15px ;
+    border-radius: 15px;
     border: 5px solid darkblue;
     background-color: #FBEEAC;
     margin-left: 250px;
     margin-top: 10px;
 }
-.sign{
+
+.sign {
     margin-left: 200px;
 }
-form{
+
+form {
     margin-top: 50px;
     margin-left: 50px;
 }
 
-input{
+input {
     margin-left: 10px;
-    border: none; 
-    border-bottom: 3px solid #F4D160 ; 
-    width: 280px; 
+    border: none;
+    border-bottom: 3px solid #F4D160;
+    width: 280px;
     background: none;
-    padding-left: 10px;    
+    padding-left: 10px;
     color: rgb(243, 238, 238);
     height: 40px;
-    
-    
 }
-.register{
+
+.register {
     font-size: 30px;
-    font-style: bold;
     margin-left: 30px;
     margin-top: 10px;
 }
-button{
+
+button {
     height: 60px;
     width: 120px;
-    border-radius: 15px ;
+    border-radius: 15px;
     border: 5px solid darkblue;
     background-color: #FBEEAC;
-   margin-left: 20px;
-   color: rgb(5, 52, 85);
-font-weight: bold;
-    
+    margin-left: 20px;
+    color: rgb(5, 52, 85);
+    font-weight: bold;
 }
 
-.todo{
+.todo {
     margin-left: 50px;
     color: whitesmoke;
-    
+}
+
+/* ===== TABLET (≤ 1024px) ===== */
+@media (max-width: 1024px) {
+    .head {
+        font-size: 60px;
+        margin-left: 10px;
+    }
+
+    .box {
+        width: 90%;
+        margin-left: 10px;
+    }
+
+    .btn {
+        margin-left: 150px;
+    }
+
+    .sign {
+        margin-left: 100px;
+    }
+
+    form {
+        margin-left: 20px;
+    }
+}
+
+/* ===== MOBILE (≤ 768px) ===== */
+@media (max-width: 768px) {
+    .head {
+        font-size: 45px;
+        text-align: center;
+        margin-left: 0;
+    }
+
+    .box {
+        width: 95%;
+        margin: auto;
+        font-size: 16px;
+    }
+
+    .btn {
+        margin-left: 0;
+        display: block;
+        margin: 20px auto;
+    }
+
+    .sign {
+        margin-left: 0;
+        text-align: center;
+    }
+
+    form {
+        margin-left: 0;
+        text-align: center;
+    }
+
+    input {
+        width: 90%;
+        margin: 10px auto;
+        display: block;
+    }
+
+    button {
+        width: 140px;
+        margin: 15px auto;
+        display: block;
+    }
+
+    .register {
+        font-size: 24px;
+        text-align: center;
+        margin-left: 0;
+    }
+
+    .todo {
+        margin-left: 0;
+        text-align: center;
+    }
+}
+
+/* ===== SMALL MOBILE (≤ 480px) ===== */
+@media (max-width: 480px) {
+    .head {
+        font-size: 32px;
+    }
+
+    .register {
+        font-size: 20px;
+    }
+
+    button {
+        height: 50px;
+        width: 120px;
+    }
 }
