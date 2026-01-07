@@ -1,0 +1,223 @@
+.container{
+    margin-top: 50px;
+}
+.imgbox{
+    
+    height: 400px;
+    width: 700px;
+    animation: slide 10s infinite;
+    background-image: url('./Image/photo.jpg');
+}
+
+@keyframes slide {
+    25%{
+        background: url('./Image/photo.jpg');
+        background-repeat: no-repeat; 
+        background-size: cover; 
+    }
+    50%{
+        background: url('./Image/img.webp');
+        background-repeat: no-repeat; 
+        background-size: cover; 
+    }
+    75%{
+        background: url('./Image/imag2.jpeg');
+        background-repeat: no-repeat; 
+        background-size: cover; 
+    }
+}
+button{
+    margin-top: 45px;
+    margin-left: 45%;
+    background-color: #4DA1A9;
+    height: 50px;
+    width: 170px;
+   border-radius: 10px;
+   color: #E1FFBB;
+   border-color: #B59F78;
+}
+
+p{
+    margin-left: 38%;
+    font-size: 25px;
+    margin-top: 15px;
+}
+.form{
+
+    margin-top: 50px;
+    margin-left: 480px;
+    padding-inline: 10px;
+    padding-top: 10px;
+    
+}
+.head{
+    margin-left: 420px;
+    font-size: 50px;
+    margin-top: 55px;
+    text-decoration: underline  #B59F78;
+}
+@media (max-width: 600px) {
+    .formbox {
+      font-size: 14px;
+      margin-left: -400px;
+    }
+    input{
+        max-width: 50%;
+        font-size: 14px;
+        margin-left: -50px;
+    }
+    button{
+        max-width: 50%;
+        font-size: 14px;
+   margin-left: 20px;
+
+    }
+  }
+  @media (min-width: 1025px){
+    .formbox {
+        font-size: 24px;
+     
+      }
+      input{
+          max-width: 30%;
+          font-size: 20px;
+         
+      }
+      button{
+          max-width: 30%;
+          font-size: 20px;
+         
+  
+      }
+  }
+  @media (min-width: 1025px){
+    .form{
+        font-size: 24px;
+    }
+    input{
+        max-width: 50%;
+        font-size: 24px;
+       
+    }
+    button{
+        max-width: 50%;
+        font-size: 24px;
+       
+
+    }
+  }
+
+  @media (max-width: 600px){
+    .form{
+        font-size: 14px;
+    }
+    input{
+        max-width: 50%;
+        font-size: 14px;
+        margin-left: -50px;
+    }
+    button{
+        max-width: 50%;
+        font-size: 14px;
+   margin-left: 20px;
+
+    }
+  }
+input{
+    margin-left: 10px;
+    border: none; 
+    border-bottom: 3px solid #B59F78 ; 
+    width: 280px; 
+    background: none;
+    padding-left: 10px;    
+    color: whitesmoke;
+}
+.done{
+    background-color: #4DA1A9;
+    margin-left: 150px;
+    height: 50px;
+    width: 120px;
+   border-radius: 10px;
+   color: #E1FFBB;
+   border-color: #B59F78;
+}
+
+.icon{
+   font-size: 100px;
+display: flex;
+gap: 39%;
+margin-left: 5px;
+  
+}
+.iconend{
+    font-size: 100px;
+    margin-left: 10px;
+    margin-top: 100px;
+    display: flex;
+    gap: 39%;
+}
+.usericon{
+    font-size: 100px;
+    margin-left: 10px;
+    margin-top: 90px;
+    display: flex;
+    gap: 39%;
+}
+.user{
+    margin-left: 650px;
+    font-size: 50px;
+    margin-top: 75px;
+    text-decoration: underline  #B59F78;
+}
+.success{
+    margin-top: 150px;
+    margin-left: 380px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-transform: uppercase;
+ 
+}
+.successicon{
+    font-size: 100px;
+    margin-left: 10px;
+    margin-top: 270px;
+    display: flex;
+    gap: 39%;
+}
+.view{
+    margin-top: 10px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 18px;
+    text-align: left;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  table thead  {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+  }
+  
+  table th,
+  table td {
+    padding: 12px 15px;
+  }
+  table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+  }
+  
+  table tbody tr:hover {
+    background-color:#F5EFE7;
+    cursor: pointer;
+  }
+  .viewhead{
+    font-size: 40px;
+    margin-left:10px ;
+    display: flex;
+   
+  }

@@ -1,0 +1,66 @@
+.head{
+    font-size: 85px;
+    margin-left: 10px;
+    
+    color: #F4D160;
+ 
+}
+.box{
+    width: 760px;
+    color: aliceblue;
+    margin-left: 20px;
+    text-align: justify;
+  
+}
+.btn{
+    height: 60px;
+    width: 150px;
+    border-radius: 15px ;
+    border: 5px solid darkblue;
+    background-color: #FBEEAC;
+    margin-left: 250px;
+    margin-top: 10px;
+}
+.sign{
+    margin-left: 200px;
+}
+form{
+    margin-top: 50px;
+    margin-left: 50px;
+}
+
+input{
+    margin-left: 10px;
+    border: none; 
+    border-bottom: 3px solid #F4D160 ; 
+    width: 280px; 
+    background: none;
+    padding-left: 10px;    
+    color: rgb(243, 238, 238);
+    height: 40px;
+    
+    
+}
+.register{
+    font-size: 30px;
+    font-style: bold;
+    margin-left: 30px;
+    margin-top: 10px;
+}
+button{
+    height: 60px;
+    width: 120px;
+    border-radius: 15px ;
+    border: 5px solid darkblue;
+    background-color: #FBEEAC;
+   margin-left: 20px;
+   color: rgb(5, 52, 85);
+font-weight: bold;
+    
+}
+
+.todo{
+    margin-left: 50px;
+    color: whitesmoke;
+    
+}
