@@ -1,23 +1,27 @@
 require("dotenv").config();
 
 const express = require("express");
-const path = require("path");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
 const app = express();
 
-// middlewares
+/* ---------- MIDDLEWARE ---------- */
 app.use(cors());
 app.use(express.json());
 
-// MongoDB connection (RENDER SAFE)
+/* ---------- HEALTH CHECK (VERY IMPORTANT FOR RENDER) ---------- */
+app.get("/", (req, res) => {
+  res.send("Student backend is running 🚀");
+});
+
+/* ---------- DATABASE CONNECTION ---------- */
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error(err));
+  .catch((err) => console.error("MongoDB connection error:", err));
 
-// schema
+/* ---------- SCHEMA & MODEL ---------- */
 const studentSchema = new mongoose.Schema({
   name: String,
   course: String,
@@ -26,22 +30,30 @@ const studentSchema = new mongoose.Schema({
 
 const Student = mongoose.model("details", studentSchema);
 
-// routes
+/* ---------- ROUTES ---------- */
+
+// add student
 app.post("/form", async (req, res) => {
-  const student = new Student(req.body);
-  await student.save();
-  res.send("Student added successfully");
+  try {
+    const student = new Student(req.body);
+    await student.save();
+    res.status(201).json({ message: "Student added successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error adding student", error });
+  }
 });
 
+// view students
 app.get("/view", async (req, res) => {
   try {
     const data = await Student.find();
     res.json(data);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: "Error fetching data", error });
   }
 });
 
+// delete student
 app.delete("/delete", async (req, res) => {
   const { name, course } = req.body;
 
@@ -57,15 +69,9 @@ app.delete("/delete", async (req, res) => {
   }
 });
 
-// serve frontend build ONLY if needed
-app.use(express.static(path.join(__dirname, "..", "fromt", "build")));
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "fromt", "build", "index.html"));
-});
-
-// listen (ONLY ONCE, ALWAYS AT END)
+/* ---------- START SERVER (ONLY ONCE, ALWAYS LAST) ---------- */
 const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => {
   console.log(`Student backend running on port ${PORT}`);
 });
