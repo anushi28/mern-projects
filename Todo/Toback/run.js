@@ -1,45 +1,77 @@
-const express = require("express")
-const cors = require("cors")
-const mongoose = require('mongoose');
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`Todo backend running on port ${PORT}`);
-});
-
+// middleware
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect("mongodb://localhost:27017/todolist")
-
-const taskSchema = new mongoose.Schema({
-    title: String,
-    completed: { type: Boolean, default: false }
+// health check (RENDER NEEDS THIS FAST RESPONSE)
+app.get("/", (req, res) => {
+  res.send("Todo backend LIVE 🚀");
 });
 
-const Task = mongoose.model('data', taskSchema);
+// ✅ MongoDB Atlas connection (NON-BLOCKING)
+mongoose
+  .connect(process.env.MONGO_URI, {
+    serverSelectionTimeoutMS: 5000
+  })
+  .then(() => console.log("MongoDB connected"))
+  .catch(err => console.error("MongoDB connection error:", err.message));
 
-app.post('/add-task', async (req, res) => {
+// schema
+const taskSchema = new mongoose.Schema(
+  {
+    title: { type: String, required: true },
+    completed: { type: Boolean, default: false }
+  },
+  { timestamps: true }
+);
+
+const Task = mongoose.model("Task", taskSchema);
+
+// routes
+app.post("/add-task", async (req, res) => {
+  try {
     const task = new Task(req.body);
     await task.save();
-    res.send("Task added successfully");
+    res.status(201).json({ message: "Task added successfully" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-app.get('/get-tasks', async (req, res) => {
-    const tasks = await Task.find();
+app.get("/get-tasks", async (req, res) => {
+  try {
+    const tasks = await Task.find().sort({ createdAt: -1 });
     res.json(tasks);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-app.put('/complete-task/:id', async (req, res) => {
+app.put("/complete-task/:id", async (req, res) => {
+  try {
     await Task.findByIdAndUpdate(req.params.id, { completed: true });
-    res.send("Task marked as completed");
+    res.json({ message: "Task marked as completed" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-app.delete('/delete-task/:id', async (req, res) => {
+app.delete("/delete-task/:id", async (req, res) => {
+  try {
     await Task.findByIdAndDelete(req.params.id);
-    res.send("Task deleted successfully");
+    res.json({ message: "Task deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-app.listen(3000, () => console.log("Server running"));
+// ✅ START SERVER (ONLY ONCE)
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log("Todo backend running on port", PORT);
+});
