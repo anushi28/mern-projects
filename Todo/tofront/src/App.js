@@ -7,36 +7,36 @@ function Sign() {
     const [tasks, setTasks] = useState([]);
     const [task, setTask] = useState('');
  
-
+const API_URL = "https://todo-back-so5v.onrender.com";
 
     useEffect(() => {
         fetchTasks();
     }, []);
 
     const fetchTasks = async () => {
-        const res = await axios.get('http://localhost:3000/get-tasks');
+        const res = await axios.get('`${API_URL}/get-tasks`);
         setTasks(res.data);
     };
 
     const addTask = async (e) => {
         e.preventDefault();
-        await axios.post('http://localhost:3000/add-task', { title: task });
+        await axios.post(`${API_URL}/add-task`, { title: task });
         fetchTasks();
         setTask('');
     };
 
     const markCompleted = async (id) => {
-        await axios.put(`http://localhost:3000/complete-task/${id}`);
+        await axios.put(`${API_URL}/complete-task/${id}`);
         fetchTasks();
     };
 
     const deleteTask = async (id) => {
-        await axios.delete(`http://localhost:3000/delete-task/${id}`);
+        await axios.delete(`${API_URL}/delete-task/${id}`);
         fetchTasks();
     };
     const togglePending = async (id, currentStatus) => {
         try {
-          await axios.put(`http://localhost:5000/tasks/${id}`, {
+          await axios.put(``${API_URL}/tasks/${id}`, {
             completed: currentStatus ? false : true, // Toggle completion status
           });
           fetchTasks(); // Refresh task list after update
