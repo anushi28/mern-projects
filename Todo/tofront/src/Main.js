@@ -25,7 +25,7 @@ export const Main = () => {
 </h1>
             <button  className='btn'  > <Link to="/app"><h2>Let's Start</h2></Link></button>
         
-         <h3 className='sign'>Don't have an account! <a href='/Create'  style={{color:'rgb(0, 153, 144)'}}> <b>Sign Up </b></a></h3>
+        
 
  
         </div>
