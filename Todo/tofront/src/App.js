@@ -3,6 +3,16 @@ import axios from "axios";
 import "./todo.css"; // keep if you already have styling
 
 const API_URL = "https://todo-back-so5v.onrender.com";
+<button
+  onClick={() => window.location.href = "/"}
+  style={{
+    marginBottom: "20px",
+    padding: "8px 16px",
+    cursor: "pointer"
+  }}
+>
+  ⬅ Back
+</button>
 
 function App() {
   const [tasks, setTasks] = useState([]);
