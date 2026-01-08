@@ -3,49 +3,88 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 const app = express();
-app.use(cors());
+
+/* ✅ CORS FIX (IMPORTANT) */
+app.use(cors({
+  origin: [
+    "https://student-front-fawk.onrender.com" // your frontend URL
+  ],
+  methods: ["GET", "POST", "DELETE"],
+  credentials: true
+}));
+
 app.use(express.json());
 
-// health check (DO NOT REMOVE)
+/* ✅ Health check (Render needs this) */
 app.get("/", (req, res) => {
   res.send("Student backend LIVE 🚀");
 });
 
-// MongoDB (NON-BLOCKING, timeout safe)
+/* ✅ MongoDB connection */
 mongoose
   .connect(process.env.MONGO_URI, {
     serverSelectionTimeoutMS: 5000
   })
   .then(() => console.log("MongoDB connected"))
-  .catch(err => console.error("MongoDB error:", err));
+  .catch(err => {
+    console.error("MongoDB error:", err.message);
+    process.exit(1);
+  });
 
-// schema
+/* ✅ Schema */
 const studentSchema = new mongoose.Schema({
-  name: String,
-  course: String,
-  age: Number
+  name: { type: String, required: true },
+  course: { type: String, required: true },
+  age: { type: Number, required: true }
 });
 
-const Student = mongoose.model("details", studentSchema);
+const Student = mongoose.model("Student", studentSchema);
 
-// routes
+/* ✅ Add student */
 app.post("/form", async (req, res) => {
-  await new Student(req.body).save();
-  res.json({ message: "Student added" });
+  try {
+    const { name, course, age } = req.body;
+
+    if (!name || !course || !age) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
+    await new Student({ name, course, age }).save();
+    res.status(201).json({ message: "Student added successfully" });
+
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
+/* ✅ View students */
 app.get("/view", async (req, res) => {
-  const data = await Student.find();
-  res.json(data);
+  try {
+    const data = await Student.find();
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
+/* ✅ Delete student */
 app.delete("/delete", async (req, res) => {
-  const { name, course } = req.body;
-  await Student.findOneAndDelete({ name, course });
-  res.json({ message: "Deleted" });
+  try {
+    const { name, course } = req.body;
+
+    const deleted = await Student.findOneAndDelete({ name, course });
+
+    if (!deleted) {
+      return res.status(404).json({ message: "Record not found" });
+    }
+
+    res.json({ message: "Record deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-// start server (ONLY ONCE)
+/* ✅ Start server (ONLY ONCE) */
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log("Student backend running on port", PORT);
