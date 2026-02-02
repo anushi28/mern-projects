@@ -8,7 +8,8 @@ export const View = () => {
   const [showForm, setShowForm] = useState(false);
   const [name, setName] = useState("");
   const [course, setCourse] = useState("");
-  const [responseMessage, setResponseMessage] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // Fetch records
   const fetchData = async () => {
@@ -16,7 +17,7 @@ export const View = () => {
       const res = await axios.get(`${API_URL}/view`);
       setData(res.data);
     } catch (err) {
-      console.error("Error fetching data:", err);
+      console.error(err);
     }
   };
 
@@ -25,104 +26,104 @@ export const View = () => {
   }, []);
 
   // Toggle delete form
-  const handleDeleteClick = () => {
+  const toggleDelete = () => {
     setShowForm(!showForm);
-    setResponseMessage("");
+    setMessage("");
   };
 
   // Delete record
-  const handleFormSubmit = async (e) => {
+  const handleDelete = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
-      const response = await axios.delete(`${API_URL}/delete`, {
-        data: { name, course },
+      const res = await axios.delete(`${API_URL}/delete`, {
+        data: { name: name.trim(), course: course.trim() },
       });
 
-      setResponseMessage(response.data.message);
+      setMessage(res.data.message);
       setName("");
       setCourse("");
       setShowForm(false);
-      fetchData(); // ✅ refresh table
-    } catch (error) {
-      setResponseMessage(
-        error.response?.data?.message || "Error deleting record"
-      );
+      fetchData();
+    } catch (err) {
+      setMessage("Error deleting record");
+    } finally {
+      setLoading(false);
     }
   };
 
-  // Back button
-  const back = () => {
-    window.history.back();
-  };
-
   return (
-    <div className="view">
-      {/* 🔙 BACK BUTTON */}
-      <button
-        onClick={back}
-        style={{ marginBottom: "20px", padding: "8px 16px" }}
-      >
-        ⬅ Back
-      </button>
-
-      <p className="viewhead">
-        RECORDS ADDED TILL NOW
-        <button onClick={handleDeleteClick} style={{ marginLeft: "20px" }}>
-          {showForm ? "Cancel" : "Delete Record"}
+    <div className="view-page">
+      <div className="view">
+        {/* BACK */}
+        <button onClick={() => window.history.back()} className="back-btn">
+          ⬅ Back
         </button>
-      </p>
 
-      {showForm && (
-        <form onSubmit={handleFormSubmit} style={{ marginTop: "20px" }}>
-          <label>
-            NAME:
+        {/* HEADER */}
+        <div className="viewhead">
+          <span>RECORDS ADDED TILL NOW</span>
+          <button onClick={toggleDelete}>
+            {showForm ? "Cancel" : "Delete Record"}
+          </button>
+        </div>
+
+        {/* DELETE FORM */}
+        {showForm && (
+          <form onSubmit={handleDelete} className="delete-form">
             <input
               type="text"
+              placeholder="Student Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
             />
-          </label>
 
-          <br />
-
-          <label>
-            COURSE:
             <input
               type="text"
+              placeholder="Course"
               value={course}
               onChange={(e) => setCourse(e.target.value)}
               required
             />
-          </label>
 
-          <br />
-          <button type="submit">Confirm Delete</button>
-        </form>
-      )}
+            <button type="submit" disabled={loading}>
+              {loading ? "Deleting..." : "Confirm Delete"}
+            </button>
+          </form>
+        )}
 
-      {responseMessage && <p>{responseMessage}</p>}
+        {message && <p className="response-msg">{message}</p>}
 
-      {/* TABLE */}
-      {data.map((item) => (
-        <table key={item._id} style={{ marginTop: "20px" }}>
-          <thead>
-            <tr>
-              <th>NAME</th>
-              <th>AGE</th>
-              <th>COURSE</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{item.name}</td>
-              <td>{item.age}</td>
-              <td>{item.course}</td>
-            </tr>
-          </tbody>
-        </table>
-      ))}
+        {/* ✅ ONE TABLE ONLY */}
+        <div className="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>NAME</th>
+                <th>AGE</th>
+                <th>COURSE</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.length === 0 ? (
+                <tr>
+                  <td colSpan="3">No records found</td>
+                </tr>
+              ) : (
+                data.map((item) => (
+                  <tr key={item._id}>
+                    <td>{item.name}</td>
+                    <td>{item.age}</td>
+                    <td>{item.course}</td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 };
