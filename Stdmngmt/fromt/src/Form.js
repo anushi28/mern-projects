@@ -61,7 +61,7 @@ export const Form = () => {
   };
 
   return (
-    <div>
+    <div className="form-page">
       <h1 className='icon'>
         <TiArrowBack onClick={back} />
         <PiStudentFill />
