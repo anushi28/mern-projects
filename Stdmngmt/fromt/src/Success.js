@@ -16,6 +16,7 @@ navigate('/view')
   }
   return (
     <>
+    <div className="success-page">
     <h1 className='icon'>  
       <TiArrowBack onClick={back}/>
       <PiStudentFill/>
@@ -30,6 +31,7 @@ navigate('/view')
       <FaBookReader/>
       <FaPenClip/>
      </h1> 
+    </div>
     </div>
     </>
   )
