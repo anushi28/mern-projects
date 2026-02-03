@@ -43,53 +43,89 @@ input {
 }
 
 /* ================= FORM PAGE ================= */
+
 .form-page {
   min-height: 100vh;
   padding: 20px;
 }
 
+/* ICONS */
 .form-page .icon,
 .form-page .iconend {
-  font-size: 70px;
   display: flex;
   justify-content: center;
   gap: 30px;
-  margin: 40px 0;
+  font-size: 60px;
+  margin: 30px 0;
 }
 
-.form-page .formbox {
+/* FORM LAYOUT */
+.formbox {
   display: flex;
   justify-content: center;
 }
 
-.form-page .head {
-  text-align: center;
-  font-size: 42px;
-  margin-bottom: 30px;
-  text-decoration: underline #b59f78;
-}
-
-.form-page .form {
+.form-wrapper {
   width: 100%;
   max-width: 420px;
   text-align: center;
 }
 
+/* HEADING */
+.form-page .head {
+  font-size: 36px;
+  margin-bottom: 30px;
+  text-decoration: underline #b59f78;
+}
+
+/* FORM */
+.form-page .form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* LABEL + INPUT */
 .form-page label {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 20px;
+  gap: 6px;
+}
+
+.form-page label span {
+  font-weight: bold;
 }
 
 .form-page input {
   width: 100%;
+  padding: 10px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid #b59f78;
+  color: whitesmoke;
+  font-size: 16px;
 }
 
+/* BUTTON */
 .form-page .done {
-  width: 180px;
-  height: 50px;
   margin-top: 20px;
+  width: 180px;
+  height: 48px;
+  align-self: center;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .form-page .head {
+    font-size: 26px;
+  }
+
+  .form-page .icon,
+  .form-page .iconend {
+    font-size: 42px;
+    gap: 20px;
+  }
 }
 
 /* ================= VIEW PAGE ================= */
