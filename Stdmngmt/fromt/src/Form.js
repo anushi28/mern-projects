@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./log.css";
 import { PiStudentFill } from "react-icons/pi";
-import { FaBookReader } from "react-icons/fa";
 import { TiArrowBack, TiArrowForward } from "react-icons/ti";
 import { GiNotebook } from "react-icons/gi";
+import { FaBookReader } from "react-icons/fa";
 import { FaPenClip } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 
@@ -37,7 +37,7 @@ export const Form = () => {
       if (res.ok) {
         navigate("/success");
       } else {
-        alert("Failed to submit form");
+        alert("Failed to submit");
       }
     } catch (err) {
       alert("Server error");
@@ -46,66 +46,67 @@ export const Form = () => {
     }
   };
 
-  const back = () => {
-    window.location.href = "/";
-  };
-
   return (
     <div className="form-page">
-      <h1 className="icon">
-        <TiArrowBack onClick={back} />
+      {/* TOP ICONS */}
+      <div className="icon">
+        <TiArrowBack onClick={() => navigate("/")} />
         <PiStudentFill />
         <TiArrowForward />
-      </h1>
-
-      <div className="formbox">
-        <h1 className="head">ADD NEW STUDENT</h1>
-
-        <form onSubmit={handleSubmit} className="form">
-          <label>
-            <b>NAME:</b>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Enter name"
-              required
-            />
-          </label>
-
-          <label>
-            <b>AGE:</b>
-            <input
-              type="number"
-              value={age}
-              onChange={(e) => setAge(e.target.value)}
-              placeholder="Enter age"
-              required
-            />
-          </label>
-
-          <label>
-            <b>COURSE:</b>
-            <input
-              type="text"
-              value={course}
-              onChange={(e) => setCourse(e.target.value)}
-              placeholder="Enter course"
-              required
-            />
-          </label>
-
-          <button type="submit" className="done" disabled={loading}>
-            {loading ? "Submitting..." : "Submit"}
-          </button>
-        </form>
       </div>
 
-      <h1 className="iconend">
+      {/* FORM WRAPPER */}
+      <div className="formbox">
+        <div className="form-wrapper">
+          <h1 className="head">ADD NEW STUDENT</h1>
+
+          <form onSubmit={handleSubmit} className="form">
+            <label>
+              <span>NAME</span>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Enter name"
+                required
+              />
+            </label>
+
+            <label>
+              <span>AGE</span>
+              <input
+                type="number"
+                value={age}
+                onChange={(e) => setAge(e.target.value)}
+                placeholder="Enter age"
+                required
+              />
+            </label>
+
+            <label>
+              <span>COURSE</span>
+              <input
+                type="text"
+                value={course}
+                onChange={(e) => setCourse(e.target.value)}
+                placeholder="Enter course"
+                required
+              />
+            </label>
+
+            <button type="submit" className="done" disabled={loading}>
+              {loading ? "Submitting..." : "Submit"}
+            </button>
+          </form>
+        </div>
+      </div>
+
+      {/* BOTTOM ICONS */}
+      <div className="iconend">
         <GiNotebook />
         <FaBookReader />
         <FaPenClip />
-      </h1>
+      </div>
     </div>
   );
 };
