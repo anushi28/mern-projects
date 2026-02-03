@@ -5,11 +5,7 @@ const API_URL = "https://student-backend-mk29.onrender.com";
 
 export const View = () => {
   const [data, setData] = useState([]);
-  const [showForm, setShowForm] = useState(false);
-  const [name, setName] = useState("");
-  const [course, setCourse] = useState("");
   const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
 
   // Fetch records
   const fetchData = async () => {
@@ -25,31 +21,17 @@ export const View = () => {
     fetchData();
   }, []);
 
-  // Toggle delete form
-  const toggleDelete = () => {
-    setShowForm(!showForm);
-    setMessage("");
-  };
-
-  // Delete record
-  const handleDelete = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  // ✅ DELETE BY ID
+  const handleDelete = async (id) => {
+    const confirm = window.confirm("Are you sure you want to delete this record?");
+    if (!confirm) return;
 
     try {
-      const res = await axios.delete(`${API_URL}/delete`, {
-        data: { name: name.trim(), course: course.trim() },
-      });
-
-      setMessage(res.data.message);
-      setName("");
-      setCourse("");
-      setShowForm(false);
+      await axios.delete(`${API_URL}/delete/${id}`);
+      setMessage("Record deleted successfully");
       fetchData();
     } catch (err) {
       setMessage("Error deleting record");
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -61,42 +43,13 @@ export const View = () => {
           ⬅ Back
         </button>
 
-        {/* HEADER */}
         <div className="viewhead">
           <span>RECORDS ADDED TILL NOW</span>
-          <button onClick={toggleDelete}>
-            {showForm ? "Cancel" : "Delete Record"}
-          </button>
         </div>
-
-        {/* DELETE FORM */}
-        {showForm && (
-          <form onSubmit={handleDelete} className="delete-form">
-            <input
-              type="text"
-              placeholder="Student Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-
-            <input
-              type="text"
-              placeholder="Course"
-              value={course}
-              onChange={(e) => setCourse(e.target.value)}
-              required
-            />
-
-            <button type="submit" disabled={loading}>
-              {loading ? "Deleting..." : "Confirm Delete"}
-            </button>
-          </form>
-        )}
 
         {message && <p className="response-msg">{message}</p>}
 
-        {/* ✅ ONE TABLE ONLY */}
+        {/* TABLE */}
         <div className="table-wrapper">
           <table>
             <thead>
@@ -104,12 +57,14 @@ export const View = () => {
                 <th>NAME</th>
                 <th>AGE</th>
                 <th>COURSE</th>
+                <th>ACTION</th>
               </tr>
             </thead>
+
             <tbody>
               {data.length === 0 ? (
                 <tr>
-                  <td colSpan="3">No records found</td>
+                  <td colSpan="4">No records found</td>
                 </tr>
               ) : (
                 data.map((item) => (
@@ -117,6 +72,14 @@ export const View = () => {
                     <td>{item.name}</td>
                     <td>{item.age}</td>
                     <td>{item.course}</td>
+                    <td>
+                      <button
+                        className="delete-btn"
+                        onClick={() => handleDelete(item._id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
                   </tr>
                 ))
               )}
@@ -127,3 +90,4 @@ export const View = () => {
     </div>
   );
 };
+
