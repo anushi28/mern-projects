@@ -212,36 +212,78 @@ input {
 }
 
 /* ================= SUCCESS PAGE ================= */
+
 .success-page {
   min-height: 100vh;
+  width: 100%;
+  background-color: #2f4f73;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  gap: 35px;
   padding: 20px;
 }
 
-.success-page .success-card {
+/* TOP ICONS */
+.success-page .icon {
+  display: flex;
+  gap: 35px;
+  font-size: 55px;
+  color: #e7d9b0;
+  cursor: pointer;
+}
+
+/* SUCCESS TEXT */
+.success {
   text-align: center;
 }
 
-.success-page h1 {
-  font-size: 36px;
-  margin: 30px 0;
+.success h1 {
+  font-size: 34px;
+  font-weight: 600;
+  color: #e7d9b0;
+  letter-spacing: 1px;
 }
 
+/* VIEW BUTTON */
 .success-page button {
-  width: 200px;
-  height: 50px;
-  margin-top: 20px;
+  padding: 12px 32px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 2px solid #b59f78;
+  background-color: #4da1a9;
+  color: #e1ffbb;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.success-page .icon,
-.success-page .iconend {
-  font-size: 60px;
-  display: flex;
-  justify-content: center;
-  gap: 25px;
+.success-page button:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
 }
+
+/* BOTTOM ICONS */
+.successicon {
+  display: flex;
+  gap: 35px;
+  font-size: 48px;
+  color: #e7d9b0;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+  .success-page .icon {
+    font-size: 40px;
+    gap: 20px;
+  }
+
+  .success h1 {
+    font-size: 24px;
+  }
+
+  .successicon
 
 /* ================= MOBILE ================= */
 @media (max-width: 768px) {
