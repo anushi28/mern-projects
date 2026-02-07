@@ -7,20 +7,13 @@ export default function Main() {
   return (
     <div className="home-wrapper">
       <div className="home-card">
-
         <h1 className="home-title">To-Do List App</h1>
-
         <p className="home-desc">
-          To-do lists increase productivity, help manage time,
-          organize tasks and reduce mental clutter.
-          Create your own task list and stay focused.
+          Stay organized and manage tasks easily.
         </p>
-
-        <button className="start-btn">
-          Let's Start →
-        </button>
-
+        <button className="start-btn">Let's Start →</button>
       </div>
     </div>
   );
 }
+
