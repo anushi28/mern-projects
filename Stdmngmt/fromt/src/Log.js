@@ -34,6 +34,7 @@ export const Log = () => {
       <p className="desc">
         Student management is the process of managing student data including
         personal information, grades and attendance.
+          1. Tracking student data- Student management systems can track a student's workload, grades, attendance, health information,and more. <br></br> 2. Streamlining administrative work- Student management systems can help streamline administrative tasks for teachers. <br></br> 3. Improving communication- Student management systems can help improve communication between administrators, teachers, and the school community. <br></br>
       </p>
 
       {/* BUTTON */}
