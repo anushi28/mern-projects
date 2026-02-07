@@ -1,160 +1,129 @@
-/* ===== BASE STYLES ===== */
-.head {
-    font-size: 85px;
-    margin-left: 10px;
-    color: #F4D160;
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.box {
-    width: 760px;
-    color: aliceblue;
-    margin-left: 20px;
-    text-align: justify;
+body {
+  background: #0f172a;
+  font-family: "Inter", sans-serif;
+  color: #e2e8f0;
 }
 
-.btn {
-    height: 60px;
-    width: 150px;
-    border-radius: 15px;
-    border: 5px solid darkblue;
-    background-color: #FBEEAC;
-    margin-left: 250px;
-    margin-top: 10px;
+/* ===== PAGE ===== */
+.app {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.sign {
-    margin-left: 200px;
+/* ===== CARD ===== */
+.todo-card {
+  width: 420px;
+  background: #111827;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
 }
 
-form {
-    margin-top: 50px;
-    margin-left: 50px;
+/* ===== TITLE ===== */
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  text-align: center;
 }
 
-input {
-    margin-left: 10px;
-    border: none;
-    border-bottom: 3px solid #F4D160;
-    width: 280px;
-    background: none;
-    padding-left: 10px;
-    color: rgb(243, 238, 238);
-    height: 40px;
+/* ===== INPUT ===== */
+.input-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-.register {
-    font-size: 30px;
-    margin-left: 30px;
-    margin-top: 10px;
+.input-row input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #1f2937;
+  color: white;
+  font-size: 15px;
 }
 
-button {
-    height: 60px;
-    width: 120px;
-    border-radius: 15px;
-    border: 5px solid darkblue;
-    background-color: #FBEEAC;
-    margin-left: 20px;
-    color: rgb(5, 52, 85);
-    font-weight: bold;
+.input-row button {
+  background: #22c55e;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
-.todo {
-    margin-left: 50px;
-    color: whitesmoke;
+.input-row button:hover {
+  background: #16a34a;
 }
 
-/* ===== TABLET (≤ 1024px) ===== */
-@media (max-width: 1024px) {
-    .head {
-        font-size: 60px;
-        margin-left: 10px;
-    }
-
-    .box {
-        width: 90%;
-        margin-left: 10px;
-    }
-
-    .btn {
-        margin-left: 150px;
-    }
-
-    .sign {
-        margin-left: 100px;
-    }
-
-    form {
-        margin-left: 20px;
-    }
+/* ===== LIST ===== */
+.todo-list {
+  margin-top: 10px;
 }
 
-/* ===== MOBILE (≤ 768px) ===== */
-@media (max-width: 768px) {
-    .head {
-        font-size: 45px;
-        text-align: center;
-        margin-left: 0;
-    }
-
-    .box {
-        width: 95%;
-        margin: auto;
-        font-size: 16px;
-    }
-
-    .btn {
-        margin-left: 0;
-        display: block;
-        margin: 20px auto;
-    }
-
-    .sign {
-        margin-left: 0;
-        text-align: center;
-    }
-
-    form {
-        margin-left: 0;
-        text-align: center;
-    }
-
-    input {
-        width: 90%;
-        margin: 10px auto;
-        display: block;
-    }
-
-    button {
-        width: 140px;
-        margin: 15px auto;
-        display: block;
-    }
-
-    .register {
-        font-size: 24px;
-        text-align: center;
-        margin-left: 0;
-    }
-
-    .todo {
-        margin-left: 0;
-        text-align: center;
-    }
+.todo-item {
+  background: #1f2937;
+  padding: 14px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* ===== SMALL MOBILE (≤ 480px) ===== */
-@media (max-width: 480px) {
-    .head {
-        font-size: 32px;
-    }
+/* ===== TEXT ===== */
+.todo-text {
+  font-size: 16px;
+}
 
-    .register {
-        font-size: 20px;
-    }
+/* ===== ACTION BUTTONS ===== */
+.actions {
+  display: flex;
+  gap: 10px;
+}
 
-    button {
-        height: 50px;
-        width: 120px;
-    }
+.delete-btn {
+  background: #ef4444;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+}
+
+.edit-btn {
+  background: #3b82f6;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background: #2563eb;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 500px) {
+  .todo-card {
+    width: 90%;
+    padding: 20px;
+  }
 }
