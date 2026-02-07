@@ -1,129 +1,106 @@
-/* ===== RESET ===== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* BACKGROUND */
 body {
-  background: #0f172a;
-  font-family: "Inter", sans-serif;
-  color: #e2e8f0;
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background-image: url("https://img.freepik.com/premium-photo/pencil-checking-off-todo-list-3d-rendering-with-blue-background-copy-space_8087-3153.jpg");
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  color: white;
 }
 
-/* ===== PAGE ===== */
-.app {
-  min-height: 100vh;
+/* HOME */
+.home-wrapper {
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* ===== CARD ===== */
-.todo-card {
-  width: 420px;
-  background: #111827;
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-}
-
-/* ===== TITLE ===== */
-.title {
-  font-size: 28px;
-  font-weight: 600;
-  margin-bottom: 25px;
+.home-card {
+  background: rgba(0,0,0,0.5);
+  padding: 60px;
+  border-radius: 20px;
   text-align: center;
+  backdrop-filter: blur(8px);
 }
 
-/* ===== INPUT ===== */
-.input-row {
+.home-card h1 {
+  font-size: 48px;
+}
+
+.home-card button {
+  margin-top: 20px;
+  padding: 14px 30px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  background: #00c6ff;
+  color: white;
+  cursor: pointer;
+}
+
+/* TODO PAGE */
+.todo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.todo-card {
+  background: rgba(0,0,0,0.6);
+  padding: 30px;
+  border-radius: 15px;
+  width: 500px;
+  backdrop-filter: blur(10px);
+}
+
+.task-form {
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
 }
 
-.input-row input {
+.task-form input {
   flex: 1;
   padding: 12px;
   border-radius: 8px;
   border: none;
-  background: #1f2937;
-  color: white;
-  font-size: 15px;
 }
 
-.input-row button {
-  background: #22c55e;
-  border: none;
-  padding: 12px 18px;
+.task-form button {
+  padding: 12px 20px;
   border-radius: 8px;
+  border: none;
+  background: #00c6ff;
   color: white;
-  font-weight: 600;
   cursor: pointer;
-  transition: 0.2s;
 }
 
-.input-row button:hover {
-  background: #16a34a;
-}
-
-/* ===== LIST ===== */
-.todo-list {
-  margin-top: 10px;
-}
-
-.todo-item {
-  background: #1f2937;
-  padding: 14px;
-  border-radius: 10px;
-  margin-bottom: 12px;
+.task-item {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  background: rgba(255,255,255,0.1);
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
 }
 
-/* ===== TEXT ===== */
-.todo-text {
-  font-size: 16px;
+.done {
+  text-decoration: line-through;
+  opacity: 0.6;
 }
 
-/* ===== ACTION BUTTONS ===== */
-.actions {
-  display: flex;
-  gap: 10px;
-}
-
-.delete-btn {
-  background: #ef4444;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 6px;
+.delete {
+  background: red;
   color: white;
-  cursor: pointer;
+  margin-left: 10px;
 }
 
-.delete-btn:hover {
-  background: #dc2626;
-}
-
-.edit-btn {
-  background: #3b82f6;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 6px;
-  color: white;
-  cursor: pointer;
-}
-
-.edit-btn:hover {
-  background: #2563eb;
-}
-
-/* ===== MOBILE ===== */
-@media (max-width: 500px) {
-  .todo-card {
-    width: 90%;
-    padding: 20px;
-  }
+.back-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 8px 16px;
 }
