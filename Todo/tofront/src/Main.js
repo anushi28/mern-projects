@@ -1,19 +1,22 @@
-import React from 'react'
-import './todo.css'
-import { GiThink } from "react-icons/gi";
-import { Link } from 'react-router-dom';
-import { FaLongArrowAltDown } from "react-icons/fa";
+import React from "react";
+import "./todo.css";
+import { useNavigate } from "react-router-dom";
+
 export default function Main() {
+  const navigate = useNavigate();
+
   return (
     <div className="home-wrapper">
       <div className="home-card">
-        <h1 className="home-title">To-Do List App</h1>
-        <p className="home-desc">
-          Stay organized and manage tasks easily.
-        </p>
-        <button className="start-btn">Let's Start →</button>
+        <h1>To-Do List App</h1>
+        <p>Stay organized. Stay productive.</p>
+
+        <button onClick={() => navigate("/todo")}>
+          Let's Start →
+        </button>
       </div>
     </div>
   );
 }
+
 
